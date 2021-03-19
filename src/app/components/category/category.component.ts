@@ -31,10 +31,10 @@ export class CategoryComponent implements OnInit {
 
   getCurrentCategoryClass(category: Category){
     if(category == this.currentCategory){
-      return "list-group-item active"
+      return "list-group-item list-group-item-action active"
     }else{
       return "list-group-item"
     }
   }
-
+  //list-group-item active
 }

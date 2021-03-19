@@ -4,6 +4,8 @@ import { Car } from 'src/app/models/car';
 import { Image } from 'src/app/models/image';
 import { CarService } from 'src/app/services/car.service';
 import { ImageService } from 'src/app/services/image.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-cardetail',
@@ -15,6 +17,7 @@ export class CardetailComponent implements OnInit {
   image:Image[] = [];
   dataLoaded = false;
   imageLoaded = false;
+  imageBasePath = environment.baseUrl;
 
   constructor(
     private carService: CarService,
