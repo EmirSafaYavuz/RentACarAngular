@@ -25,7 +25,6 @@
     </tr>
   </tbody>
 </table> -->
-
 <table *ngIf="dataLoaded!=false" class="table">
   <thead class="table table-dark table-hover">
     <tr>
@@ -39,7 +38,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let car of cars">
+    <tr
+    routerLink="/Car/Detail/{{car.id}}"
+    *ngFor="let car of cars">
       <th scope="row">{{car.id}}</th>
       <td>{{car.modelYear}}</td>
       <td>{{car.name}}</td>

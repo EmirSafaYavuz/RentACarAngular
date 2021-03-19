@@ -9,7 +9,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let color of colors">
+    <tr
+    routerLink="/Car/Color/{{color.id}}"
+     *ngFor="let color of colors">
       <th scope="row">{{color.id}}</th>
       <td>{{color.name}}</td>
     </tr>
