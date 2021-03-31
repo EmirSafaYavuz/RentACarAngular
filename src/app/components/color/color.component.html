@@ -1,6 +1,13 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-danger" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
+<div class="mb-3">
+  <label for="filterText" class="form-label">Renk Ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Bir şeyler yazın...">
+</div>
+<div *ngIf="filterText" class="alert alert-primary">
+  {{filterText}} kelimesi için sonuçlar gösteriliyor.
+</div>
 <table *ngIf="dataLoaded!=false" class="table">
   <thead class="table table-dark table-hover">
     <tr>
@@ -11,7 +18,7 @@
   <tbody>
     <tr
     routerLink="/Car/Color/{{color.id}}"
-     *ngFor="let color of colors">
+     *ngFor="let color of colors | colorFilterPipe:filterText">
       <th scope="row">{{color.id}}</th>
       <td>{{color.name}}</td>
     </tr>

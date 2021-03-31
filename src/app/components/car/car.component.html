@@ -1,15 +1,60 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-danger" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
-<div class="row">
-  <div *ngFor="let car of cars" class="col-md-4">
-<div class="card" style="width: 18rem;">
-  <img *ngFor="let image of image" src="{{imageBasePath}}{{image.imagePath}}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{car.name}}  {{car.dailyPrice}}₺</h5>
-    <p class="card-text">{{car.description}}</p>
-    <a routerLink="/Car/Detail/{{car.id}}" class="btn btn-primary">İncele</a>
+<div class="bg-info bg-gradient px-2 text-center" style="border-radius: 15px; padding: 1px;">
+  <div class="row my-3">
+    <div class="col-md-5">
+      <select [(ngModel)]="brandIdFilter" class="form-select" aria-label="Default select example">
+        <option [selected]="getDefaultSelectBrand()" value=0>Marka Seçiniz</option>
+        <option *ngFor="let brand of brands" value="{{brand.id}}">{{brand.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <select [(ngModel)]="colorIdFilter" class="form-select" aria-label="Default select example">
+        <option [selected]="getDefaultSelectColor()" value=0>Renk Seçiniz</option>
+        <option *ngFor="let color of colors" value="{{color.id}}">{{color.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button
+      routerLink="/Car/filter/{{brandIdFilter}}/{{colorIdFilter}}"
+      type="button" class="btn btn-dark">
+        Filtreleri Uygula
+      </button>
+    </div>
   </div>
 </div>
+
+<div class="row my-3">
+  <div class="col-md-12 my-3">
+    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Araç Arayın...">
+  </div>
+  <div class="col-md-6 my-2" *ngIf="colorIdFilter != 0 || brandIdFilter != 0">
+    <button
+    routerLink="/Car/filter/0/0"
+    type="button" class="btn btn-dark">
+      Filtreleri Sıfırla
+    </button>
+  </div>
 </div>
+
+<div *ngIf="filterText" class="alert alert-primary">
+  {{filterText}} kelimesi için sonuçlar gösteriliyor.
 </div>
+<div class="row" *ngIf="cars.length != 0">
+  <div *ngFor="let car of cars | carFilterPipe:filterText" class="col-md-4">
+    <div class="card" style="width: 18rem;">
+      <img *ngFor="let image of image" src="{{imageBasePath}}{{image.imagePath}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{car.name}}  {{car.dailyPrice}}₺</h5>
+        <p class="card-text">{{car.description}}</p>
+        <a routerLink="/Car/Detail/{{car.id}}" class="btn btn-primary">İncele</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="cars.length == 0">
+  <div class=""> Aradığınız Kriterlerde Araç Bulunmamaktadır</div>
+</div>
+
